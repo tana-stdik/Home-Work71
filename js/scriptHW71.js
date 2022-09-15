@@ -28,15 +28,6 @@ function creatButtonCitizen(insBtnAdd) {
   insBtnAdd.disabled = true;
   if(document.getElementById("btn-reg")===null) {
     document.getElementById("btn-add").insertAdjacentHTML("afterend",
-    ` <button onclick="enterDataCitizen(this)" class="btn-new" id="btn-reg">Создать Гражданина</button>
-       `);
-   } 
-  }
-
-function enterDataCitizen(insBtnReg) { 
-  insBtnReg.disabled = true;
-  if(document.getElementById("form-citizen")===null) {
-    document.getElementById("btn-reg").insertAdjacentHTML("afterend",
     `  <form id="form-citizen">
     <div class="entry-field">
       <label for="first-name">Имя:</label>
@@ -50,24 +41,52 @@ function enterDataCitizen(insBtnReg) {
       <label for="age">Возраст:</label>
       <input type="number" id="age" />
     </div>
+    <div class="entry-field">
+      <label for="is-registration">
+        Вы зарегистрированы?
+        <input type="checkbox" id="is-registration" value="true">
+      </label>
+    </div>
      <button onclick="enterDataAdress(this)" class="btn-new" id="btn-adr">Ввести адрес</button> 
 </form>
 <p id="valueInput"></p>
 <p id="valueInput1"></p>
 <p id="valueInput2"></p>
-       `); 
-       
-    let inputValueFirstName = document.getElementById("first-name").value; 
-    document.getElementById("valueInput").innerHTML = inputValueFirstName;
-    let inputValueLastName = document.getElementById("last-name").value; 
-    document.getElementById("valueInput1").innerHTML = inputValueLastName; 
-    let inputValueAge = document.getElementById("age").value; 
-    document.getElementById("valueInput2").innerHTML = inputValueAge; 
-  
-   }
+<p id="valueInput3"></p>
+       `);
+   } 
   }
  
   function enterDataAdress(insBtnReg) { 
+
+    let firstNameValue = document.getElementById("first-name").value;
+    console.log(firstNameValue);
+    let lastNameValue = document.getElementById("last-name").value;
+    console.log(lastNameValue);
+    let ageValue = document.getElementById("age").value;
+    console.log(ageValue);
+    let isRegistrationValue = '';
+    if (document.getElementById("is-registration").checked) {
+      isRegistrationValue = true;
+      console.log(isRegistrationValue);
+    } else {
+      isRegistrationValue = false;
+      console.log(isRegistrationValue);
+    }
+
+    let Citizen = class {
+      constructor(firstName, lastName, age, isRegistration = false, adress = null) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.isRegistration = isRegistration;
+        this.adress = adress;
+      }
+    }
+
+    let citizen = new Citizen(firstNameValue, lastNameValue, ageValue, isRegistrationValue);
+    console.log(citizen);
+
     insBtnReg.disabled = true;
     if(document.getElementById("form-adress")===null) {
       document.getElementById("form-citizen").insertAdjacentHTML("afterend",
@@ -92,26 +111,37 @@ function enterDataCitizen(insBtnReg) {
         <label for="flat">Номер квартиры:</label>
         <input type="number" id="flat" />
       </div>
-      <button type="button"  onclick="getValue()"> 
+      <button class="btn-new" type="button"  onclick="getValue()"> 
       click me!! 
   </button> 
   </form>
          `); 
      }
     }
-/*let name= document.getElementById("country").value; 
-let name= document.getElementById("city").value; 
-let name= document.getElementById("street").value; 
-let name= document.getElementById("house").value; 
-let name= document.getElementById("flat").value; 
-const adres = new Adress(country, city, street, house, flat);
 
- */
-  const getValue = () =>{
-    let inputValueFirstName = document.getElementById("first-name").value; 
-    document.getElementById("valueInput").innerHTML = inputValueFirstName;
-    let inputValueLastName = document.getElementById("last-name").value; 
-    document.getElementById("valueInput1").innerHTML = inputValueLastName; 
-    let inputValueAge = document.getElementById("age").value; 
-    document.getElementById("valueInput2").innerHTML = inputValueAge; 
+  function getValue() {
+    let countryValue = document.getElementById("country").value;
+    console.log(countryValue);
+    let cityValue = document.getElementById("city").value;
+    console.log(cityValue);
+    let streetValue = document.getElementById("street").value;
+    console.log(streetValue);
+    let houseValue = document.getElementById("house").value;
+    console.log(houseValue);
+    let flatValue = document.getElementById("flat").value;
+    console.log(flatValue);
+
+
+    let Adress = class {
+      constructor(country, city, street, house, flat) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.flat = flat;
+      }
+    };
+
+    let adress = new Adress(countryValue, cityValue, streetValue, houseValue, flatValue);
+    console.log(adress);
   }
